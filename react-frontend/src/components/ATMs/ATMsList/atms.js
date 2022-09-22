@@ -14,7 +14,9 @@ class ATMs extends React.Component{
         const atms = this.getATMs();
         return (
             <div>
+                <ul>
                 {atms}
+                </ul>
             </div>
         );
     }

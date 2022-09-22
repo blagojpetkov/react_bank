@@ -3,7 +3,7 @@ package mk.ukim.finki.emt.transactioncontext.domain.models;
 import lombok.Getter;
 import mk.ukim.finki.emt.sharedkernel.domain.base.AbstractEntity;
 import mk.ukim.finki.emt.sharedkernel.domain.base.UserType;
-import mk.ukim.finki.emt.transactioncontext.valueobjects.BankId;
+import mk.ukim.finki.emt.transactioncontext.domain.valueobjects.BankId;
 
 import javax.persistence.*;
 import java.time.Instant;

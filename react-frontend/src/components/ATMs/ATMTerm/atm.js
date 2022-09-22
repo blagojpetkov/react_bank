@@ -3,9 +3,7 @@ import {Link} from "react-router-dom";
 
 const atmTerm = (props) => {
     return(
-        <tr>
-            <td>{props.term.location}</td>
-        </tr>
+        <li><button style={{margin: "10px"}} className={"btn btn-secondary"}>{props.term.location}</button></li>
     )
 }
 export default atmTerm;

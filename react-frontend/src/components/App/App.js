@@ -17,6 +17,7 @@ class App extends React.Component{
             banks: [],
             atms: [],
             selectedBank: "",
+            selectedBankUsers: [],
         }
     }
 
@@ -31,6 +32,8 @@ class App extends React.Component{
                             <Route path={"/"}      exact element={<Banks onSelect={this.selectBank} banks={this.state.banks}/>}/>
                             <Route path={"/banks/view/:id"} exact element={
                                 <BankView
+                                    onSelect={this.selectBank}
+                                    users={this.state.selectedBankUsers}
                                     term={this.state.selectedBank}
                                 />
                             }
@@ -64,14 +67,21 @@ class App extends React.Component{
         })
     }
 
+
     selectBank = (id) => {
             this.setState({
                 selectedBank: id
             })
+
+            EShopService.fetchUsers(id).then((data) => {
+                this.setState({
+                    selectedBankUsers: data.data
+                })
+            })
     }
 
     addUser = (selectedBank, name, surname, location) => {
-        EShopService.addUserToBank(selectedBank, name, surname, location)
+        EShopService.addUserToBank(selectedBank, name, surname, location, "NORMAL_USER")
 
 
         // .then(()=>{
@@ -83,6 +93,7 @@ class App extends React.Component{
     componentDidMount() {
         this.loadBanks()
         this.loadATMs()
+
     }
 }
 

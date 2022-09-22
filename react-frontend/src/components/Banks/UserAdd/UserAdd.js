@@ -23,7 +23,7 @@ const UserAdd = (props) => {
         const surname = formData.surname;
         const location = formData.location;
 
-        props.onAddUser(name, surname, location);
+        props.onAddUser(props.term, name, surname, location);
         history("/banks")
     }
 

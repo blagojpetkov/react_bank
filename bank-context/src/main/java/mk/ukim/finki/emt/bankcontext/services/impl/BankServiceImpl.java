@@ -10,11 +10,13 @@ import mk.ukim.finki.emt.bankcontext.services.BankService;
 import mk.ukim.finki.emt.sharedkernel.domain.events.account.AccountCreated;
 import mk.ukim.finki.emt.sharedkernel.infra.DomainEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Random;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class BankServiceImpl implements BankService {
 

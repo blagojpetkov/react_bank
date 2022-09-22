@@ -6,15 +6,23 @@ const EShopService = {
         return axios.get("/getAll")
     },
 
+    addUserToBank(selectBank, name, surname, location, type) {
+
+        return axios.post("/user", {
+            "bankIdString": selectBank,
+            "name": name,
+            "surname": surname,
+            "location": location,
+            "type": type
+        })
+    },
+
     fetchATMs: () => {
         return axios2.get("/getAll")
     },
-    addUserToBank(selectBank, name, category, author, availableCopies) {
-        console.log("vnatre vo service")
-        console.log(selectBank)
-        console.log("vnatre vo service")
 
-        //return axios.get("/")
+    fetchUsers: (id) => {
+        return axios.get(`/getBankUsers/${id}`)
     }
 }
 export default EShopService;

@@ -5,10 +5,12 @@ import mk.ukim.finki.emt.moneytransportcontext.domain.models.MoneyTransportVehic
 import mk.ukim.finki.emt.moneytransportcontext.domain.repository.MoneyTransportVehicleRepository;
 import mk.ukim.finki.emt.moneytransportcontext.services.MoneyTransportVehicleService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Random;
 
 @AllArgsConstructor
+@Transactional
 @Service
 public class MoneyTransportVehicleServiceImpl implements MoneyTransportVehicleService {
     private final MoneyTransportVehicleRepository repository;

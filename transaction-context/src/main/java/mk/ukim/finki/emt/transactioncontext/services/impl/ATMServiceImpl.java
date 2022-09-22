@@ -14,9 +14,11 @@ import mk.ukim.finki.emt.transactioncontext.domain.repository.ATMRepository;
 import mk.ukim.finki.emt.transactioncontext.domain.repository.AccountRepository;
 import mk.ukim.finki.emt.transactioncontext.services.ATMService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class ATMServiceImpl implements ATMService {
 
     private final ATMRepository atmRepository;
