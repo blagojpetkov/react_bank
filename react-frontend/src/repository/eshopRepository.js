@@ -1,7 +1,11 @@
 import axios_bank from '../custom-axios/axios_bank'
 import axios_atm from '../custom-axios/axios_atm'
-
+import axios_transport from '../custom-axios/axios_transport'
 const EShopService = {
+    fetchVehicles: () => {
+        return axios_transport.get("/getAll")
+    },
+
     login: (atmId, accountNumber, password)=>{
         return axios_atm.get(`/login?ATMIdString=${atmId}&accountNumber=${accountNumber}&password=${password}`)
     },

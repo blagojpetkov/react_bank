@@ -7,6 +7,7 @@ import mk.ukim.finki.emt.moneytransportcontext.services.MoneyTransportVehicleSer
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Random;
 
 @AllArgsConstructor
@@ -14,6 +15,11 @@ import java.util.Random;
 @Service
 public class MoneyTransportVehicleServiceImpl implements MoneyTransportVehicleService {
     private final MoneyTransportVehicleRepository repository;
+
+    @Override
+    public List<MoneyTransportVehicle> findAll() {
+        return repository.findAll();
+    }
 
     @Override
     public void refill(String atm) {

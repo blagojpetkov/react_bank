@@ -9,6 +9,7 @@ import BankView from "../Banks/BankView/bankview"
 import UserAdd from "../Banks/UserAdd/UserAdd";
 import UserView from "../Banks/UserView/UserView"
 import ATMLogin from "../ATMs/ATMLogin/ATMLogin";
+import VehicleList from "../MoneyTransport/VehicleList/VehicleList";
 class App extends React.Component{
 
     constructor(props) {
@@ -16,6 +17,7 @@ class App extends React.Component{
         this.state = {
             banks: [],
             atms: [],
+            vehicles: [],
             selectedBank: "",
             selectedBankUsers: [],
             selectedBankUser: {},
@@ -53,6 +55,10 @@ class App extends React.Component{
 
 
                             <Route path={"/atms"} exact element={<ATMs selectATM={this.selectATM} atms={this.state.atms} />}/>
+
+
+                            <Route path={"/moneyTransport"} exact element={<VehicleList vehicles={this.state.vehicles} />}/>
+
                             <Route path="*" element={<Navigate to ="/banks" />}/>
                         </Routes>
                     </div>
@@ -74,6 +80,14 @@ class App extends React.Component{
         EShopService.fetchATMs().then((data) => {
             this.setState({
                 atms: data.data
+            })
+        })
+    }
+
+    loadVehicles = () => {
+        EShopService.fetchVehicles().then((data) => {
+            this.setState({
+                vehicles: data.data
             })
         })
     }
@@ -174,7 +188,7 @@ class App extends React.Component{
     componentDidMount() {
         this.loadBanks()
         this.loadATMs()
-
+        this.loadVehicles()
     }
 }
 

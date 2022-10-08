@@ -16,7 +16,10 @@ const header = (props) => {
                             <Link className="nav-link" to={"/banks"}>Banks</Link>
                         </li>
                         <li className="nav-item active">
-                            <Link className="nav-link" to={"/atms   "}>ATMs</Link>
+                            <Link className="nav-link" to={"/atms"}>ATMs</Link>
+                        </li>
+                        <li className="nav-item active">
+                            <Link className="nav-link" to={"/moneyTransport"}>Money Transport Vehicles</Link>
                         </li>
                     </ul>
                     {/*<form className="form-inline mt-2 mt-md-0 ml-3">*/}
