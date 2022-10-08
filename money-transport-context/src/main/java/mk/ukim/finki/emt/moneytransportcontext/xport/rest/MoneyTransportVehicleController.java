@@ -3,11 +3,9 @@ package mk.ukim.finki.emt.moneytransportcontext.xport.rest;
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.emt.moneytransportcontext.domain.models.MoneyTransportVehicle;
 import mk.ukim.finki.emt.moneytransportcontext.domain.repository.MoneyTransportVehicleRepository;
-import mk.ukim.finki.emt.moneytransportcontext.services.MoneyTransportVehicleService;
-import mk.ukim.finki.emt.moneytransportcontext.valueobjects.BankId;
+import mk.ukim.finki.emt.moneytransportcontext.domain.valueobjects.BankId;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController

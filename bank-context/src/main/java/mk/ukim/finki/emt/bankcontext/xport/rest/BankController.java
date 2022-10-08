@@ -5,6 +5,7 @@ import mk.ukim.finki.emt.bankcontext.domain.dto.CreateUserDto;
 import mk.ukim.finki.emt.bankcontext.domain.model.Bank;
 import mk.ukim.finki.emt.bankcontext.domain.model.BankId;
 import mk.ukim.finki.emt.bankcontext.domain.model.User;
+import mk.ukim.finki.emt.bankcontext.domain.model.UserId;
 import mk.ukim.finki.emt.sharedkernel.domain.base.UserType;
 import mk.ukim.finki.emt.bankcontext.domain.repository.BankRepository;
 import mk.ukim.finki.emt.bankcontext.services.BankService;
@@ -31,6 +32,15 @@ public class BankController {
     public ResponseEntity<Bank> getBank(@PathVariable String bankIdString){
         BankId bankId = new BankId(bankIdString);
         return bankRepository.findById(bankId).map(x->ResponseEntity.ok().body(x)).orElseGet(()->ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{bankIdString}/{userIdString}")
+    public ResponseEntity<User> getUser(@PathVariable String bankIdString, @PathVariable String userIdString){
+        BankId bankId = new BankId(bankIdString);
+        UserId userId = new UserId(userIdString);
+        Bank bank = bankRepository.findById(bankId).get();
+        return bank.getUsers().stream().filter(x->x.getId().getId().equals(userId.getId())).findFirst()
+                .map(x->ResponseEntity.ok().body(x)).orElseGet(()->ResponseEntity.notFound().build());
     }
 
 
@@ -62,8 +72,10 @@ public class BankController {
 
     @PostMapping("/account")
     public void createUserAccount(@RequestParam String bankIdString,
-                                  @RequestParam String userIdString) {
-        bankService.createUserAccountInBank(bankIdString, userIdString);
+                                  @RequestParam String userIdString,
+                                  @RequestParam String password
+    ) {
+        bankService.createUserAccountInBank(bankIdString, userIdString, password);
     }
 
 }

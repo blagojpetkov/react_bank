@@ -32,15 +32,14 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public void createUserAccountInBank(String bankIdString, String userIdString) {
+    public void createUserAccountInBank(String bankIdString, String userIdString, String password) {
         BankId bankId = new BankId(bankIdString);
         UserId userId = new UserId(userIdString);
         Bank bank = bankRepository.findById(bankId).orElseThrow(()->new RuntimeException("Bank doesn't exist"));
         Random random = new Random();
-        Long accountNumber = Math.abs(random.nextLong());
+        Long accountNumber = Math.abs(random.nextLong()/10000);
         if(!bank.createNewUserAccount(userId, accountNumber)) return;
-        String password = "password";
-        domainEventPublisher.publish(new AccountCreated(accountNumber, password, UserType.NORMAL_USER));
+        domainEventPublisher.publish(new AccountCreated(bankIdString, accountNumber, password, UserType.NORMAL_USER));
         bankRepository.save(bank);
     }
 

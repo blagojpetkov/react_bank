@@ -31,13 +31,16 @@ public class ATM extends AbstractEntity<ATMId> {
     private String location;
 
     public boolean withdrawMoney(Account account, Double amount) {
-        if(amount>balance) return false;
-        if(amount>account.getAccountBalance()) return false;
-        if(account.getType().equals(UserType.NORMAL_USER) && amount>15000.0) return false;
-        if(account.getType().equals(UserType.VIP) && amount>40000.0) return false;
+        if(!this.bankId.getId().equals(account.getBankId().getId())) throw new RuntimeException("Account bank does not equal ATM bank");
+        if(amount>balance) throw new RuntimeException("The amount you are trying to withdraw is larger than the ATM's balance");
+        if(amount>account.getAccountBalance()) throw new RuntimeException("The amount you are trying to withdraw is larger than the account's balance");
+        if(account.getType().equals(UserType.NORMAL_USER) && amount>15000.0) throw new RuntimeException("Normal users can't withdraw more than 15000");
+        if(account.getType().equals(UserType.VIP) && amount>40000.0) throw new RuntimeException("VIP users can't withdraw more than 40000");
         this.balance-=amount;
         account.withdraw(amount);
-        transactions.add(new Transaction(Instant.now(), -amount));
+        Transaction transaction = new Transaction(Instant.now(), -amount);
+        transactions.add(transaction);
+        account.getTransactions().add(transaction);
         return true;
 
     }
@@ -45,7 +48,9 @@ public class ATM extends AbstractEntity<ATMId> {
     public boolean depositMoney(Account account, Double amount) {
         this.balance+=amount;
         account.deposit(amount);
-        transactions.add(new Transaction(Instant.now(), amount));
+        Transaction transaction = new Transaction(Instant.now(), amount);
+        transactions.add(transaction);
+        account.getTransactions().add(transaction);
         return true;
     }
     public void refill(){

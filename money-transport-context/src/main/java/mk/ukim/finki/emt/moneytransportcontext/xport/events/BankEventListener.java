@@ -23,6 +23,7 @@ public class BankEventListener {
             ATM_almost_empty event = DomainEvent.fromJson(jsonMessage,ATM_almost_empty.class);
             String atm = event.getAtmIdString();
             service.refill(atm);
+            Thread.sleep(15000);
             domainEventPublisher.publish(new ATM_refilled(atm));
 
         } catch (Exception e){

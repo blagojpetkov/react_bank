@@ -6,7 +6,7 @@ import mk.ukim.finki.emt.sharedkernel.domain.config.TopicHolder;
 import mk.ukim.finki.emt.sharedkernel.domain.events.DomainEvent;
 @Getter
 public class AccountCreated extends DomainEvent {
-
+    private String bankIdString;
     private Long accountNumber;
     private String password;
     private UserType type;
@@ -15,8 +15,9 @@ public class AccountCreated extends DomainEvent {
         super(TopicHolder.TOPIC_USER_ACCOUNT_CREATED);
     }
 
-    public AccountCreated(Long accountNumber, String password, UserType type) {
+    public AccountCreated(String bankIdString, Long accountNumber, String password, UserType type) {
         super(TopicHolder.TOPIC_USER_ACCOUNT_CREATED);
+        this.bankIdString = bankIdString;
         this.accountNumber = accountNumber;
         this.password = password;
         this.type = type;

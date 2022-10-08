@@ -1,6 +1,4 @@
 import React from "react"
-import ReactPaginate from "react-paginate";
-import {Link} from "react-router-dom";
 import ATMTerm from "../ATMTerm/atm"
 
 class ATMs extends React.Component{
@@ -14,7 +12,10 @@ class ATMs extends React.Component{
         const atms = this.getATMs();
         return (
             <div>
-                <ul>
+                <br/>
+                <br/>
+                <h3 className={"text-center"}>All ATMs:</h3>
+                <ul style={{listStyle: "none"}}>
                 {atms}
                 </ul>
             </div>
@@ -24,9 +25,8 @@ class ATMs extends React.Component{
 
     getATMs = () => {
         return this.props.atms.map((term) => {
-            console.log(term)
             return(
-                <ATMTerm term = {term}/>
+                <ATMTerm selectATM={this.props.selectATM} term = {term}/>
             )
         })
     }

@@ -43,6 +43,7 @@ const UserAdd = (props) => {
                                onChange={handleChange}
                         />
                     </div>
+                    <br/>
                     <div className="form-group">
                         <label htmlFor="surname">Surname</label>
                         <input type="text"
@@ -54,6 +55,7 @@ const UserAdd = (props) => {
                                onChange={handleChange}
                         />
                     </div>
+                    <br/>
 
                     <div className="form-group">
                         <label htmlFor="location">Location</label>
@@ -66,7 +68,7 @@ const UserAdd = (props) => {
                                onChange={handleChange}
                         />
                     </div>
-
+                    <br/>
                     <button id="submit" type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>

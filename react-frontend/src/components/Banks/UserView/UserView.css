@@ -1,0 +1,30 @@
+
+#body{
+    background-color: #9ed9cc;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 30px;
+    height: 680px;
+}
+
+
+h1{
+    font-family: 'Oswald', sans-serif;
+}
+#container{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+}
+
+#middle{
+    width: 80%;
+    margin: 40px auto auto;
+}
+
+#avatar{
+    margin-top: 50px;
+    width: 200px;
+    height: 250px;
+}

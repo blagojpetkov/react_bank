@@ -1,4 +1,4 @@
-package mk.ukim.finki.emt.moneytransportcontext.valueobjects;
+package mk.ukim.finki.emt.moneytransportcontext.domain.valueobjects;
 
 import mk.ukim.finki.emt.sharedkernel.domain.base.DomainObjectId;
 

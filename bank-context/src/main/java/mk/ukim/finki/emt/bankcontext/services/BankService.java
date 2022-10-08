@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BankService {
     void createUserInBank(String bankIdString, String name, String surname, String location, UserType type);
-    void createUserAccountInBank(String bankIdString, String userIdString);
+    void createUserAccountInBank(String bankIdString, String userIdString, String password);
     Bank findById(BankId bankId);
     void save(Bank bank);
     List<Bank> getAll();

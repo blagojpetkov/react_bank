@@ -20,7 +20,7 @@ public class BankEventListener {
     public void consumeUserAccountCreatedEvent(String jsonMessage) {
         try {
             AccountCreated event = DomainEvent.fromJson(jsonMessage,AccountCreated.class);
-            atmService.createAccount(event.getAccountNumber(), event.getPassword(), event.getType());
+            atmService.createAccount(event.getBankIdString(), event.getAccountNumber(), event.getPassword(), event.getType());
         } catch (Exception e){
 
         }
@@ -40,14 +40,4 @@ public class BankEventListener {
 
     }
 
-//    @KafkaListener(topics= TopicHolder.TOPIC_ORDER_ITEM_REMOVED, groupId = "productCatalog")
-//    public void consumeOrderItemRemovedEvent(String jsonMessage) {
-//        try {
-//            OrderItemRemoved event = DomainEvent.fromJson(jsonMessage,OrderItemRemoved.class);
-//            productService.orderItemRemoved(ProductId.of(event.getProductId()), event.getQuantity());
-//        } catch (Exception e){
-//
-//        }
-//
-//    }
 }
