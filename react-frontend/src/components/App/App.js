@@ -7,8 +7,11 @@ import Banks from "../Banks/BanksList/banks";
 import ATMs from "../ATMs/ATMsList/atms";
 import BankView from "../Banks/BankView/bankview"
 import UserAdd from "../Banks/UserAdd/UserAdd";
+import BankAdd from "../Banks/BankAdd/BankAdd";
 import UserView from "../Banks/UserView/UserView"
 import ATMLogin from "../ATMs/ATMLogin/ATMLogin";
+import ATMAdd from "../ATMs/ATMAdd/ATMAdd";
+import VehicleAdd from "../MoneyTransport/VehicleAdd/VehicleAdd";
 import VehicleList from "../MoneyTransport/VehicleList/VehicleList";
 class App extends React.Component{
 
@@ -37,9 +40,11 @@ class App extends React.Component{
                     <div className="container">
                         <Routes>
                             <Route path={"/banks"} exact element={<Banks onSelect={this.selectBank} banks={this.state.banks} />}/>
-                            <Route path={"/"}      exact element={<Banks onSelect={this.selectBank} banks={this.state.banks}/>}/>
+                            <Route path={"/banks/add"} exact element={<BankAdd onAddBank={this.addBank}/>} />}/>
+                            <Route path={"/"} exact element={<Banks onSelect={this.selectBank} banks={this.state.banks}/>}/>
                             <Route path={"/banks/view/:id"} exact element={
                                 <BankView
+                                    banks={this.state.banks}
                                     users={this.state.selectedBankUsers}
                                     term={this.state.selectedBank}
                                     selectUser={this.selectUser}
@@ -47,11 +52,11 @@ class App extends React.Component{
                             }
                             />
                             <Route path={"/banks/createuser"} exact element={<UserAdd term={this.state.selectedBank} onAddUser={this.addUser}/>}/>
-                            {/*<Route path={"/banks/createaccount"}/>*/}
 
                             <Route path={"/banks/:bankid/user/:userid"} exact element={<UserView createAccount={this.createAccount} bank={this.state.selectedBank} term={this.state.selectedBankUser}/>}/>
-                            {/*<Route path={"/atms/:atmid"} exact element={<ATMView responseStatus={this.state.responseStatus} deposit={this.deposit} withdraw={this.withdraw} term={this.state.selectedATM} />}/>*/}
                             <Route path={"/atms/:atmid"} exact element={<ATMLogin selectedAccountBalance={this.state.selectedAccountBalance} responseStatus={this.state.responseStatus} login={this.login} withdraw={this.withdraw} deposit={this.deposit} term={this.state.selectedATM} />}/>
+                            <Route path={"/atmAdd"} exact element={<ATMAdd onAddATM={this.addATM} banks={this.state.banks}/>}/>
+                            <Route path={"/vehicleAdd"} exact element={<VehicleAdd onAddVehicle={this.addVehicle} banks={this.state.banks}/>}/>
 
 
                             <Route path={"/atms"} exact element={<ATMs selectATM={this.selectATM} atms={this.state.atms} />}/>
@@ -125,11 +130,25 @@ class App extends React.Component{
 
     addUser = (selectedBank, name, surname, location) => {
         EShopService.addUserToBank(selectedBank, name, surname, location, "NORMAL_USER")
+    }
+    addBank = (name) => {
+        EShopService.addBank(name)
+            .then(()=>{
+                this.loadBanks();
+            })
+    }
 
-
-        // .then(()=>{
-        //     this.loadBooks()
-        // })
+    addATM = (location, bankId) => {
+        EShopService.addATM(location, bankId)
+            .then(()=>{
+                this.loadATMs();
+            })
+    }
+    addVehicle = (location, bankId) => {
+        EShopService.addVehicle(location, bankId)
+            .then(()=>{
+                this.loadVehicles();
+            })
     }
 
     createAccount = (bankId, userId, password) => {

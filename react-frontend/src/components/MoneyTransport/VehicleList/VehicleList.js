@@ -1,5 +1,6 @@
 import React from "react"
 import VehicleTerm from "../VehicleTerm/VehicleTerm"
+import {Link} from "react-router-dom";
 
 class VehicleList extends React.Component{
     constructor(props) {
@@ -24,6 +25,8 @@ class VehicleList extends React.Component{
                         </tbody>
                     </table>
                 </div>
+                <Link style={{width: "100%", marginTop: "20px"}} className={"btn btn-success"} to={"/vehicleAdd"}>Add Money Transport Vehicle</Link>
+
             </div>
         );
     }

@@ -3,6 +3,8 @@ package mk.ukim.finki.emt.transactioncontext.domain.models;
 import lombok.Getter;
 import mk.ukim.finki.emt.sharedkernel.domain.base.AbstractEntity;
 import mk.ukim.finki.emt.sharedkernel.domain.base.UserType;
+import mk.ukim.finki.emt.sharedkernel.domain.financial.Currency;
+import mk.ukim.finki.emt.sharedkernel.domain.financial.Money;
 import mk.ukim.finki.emt.transactioncontext.domain.valueobjects.BankId;
 
 import javax.persistence.*;
@@ -17,7 +19,7 @@ public class Account extends AbstractEntity<AccountId> {
 
     private Long accountNumber;
     private String accountPassword;
-    private Double accountBalance;
+    private Money accountBalance;
     private UserType type;
 
     public Account(String bankIdString, Long accountNumber, String accountPassword, Double accountBalance, UserType type) {
@@ -25,7 +27,7 @@ public class Account extends AbstractEntity<AccountId> {
         this.bankId = new BankId(bankIdString);
         this.accountNumber = accountNumber;
         this.accountPassword = accountPassword;
-        this.accountBalance = accountBalance;
+        this.accountBalance = new Money(Currency.USD, accountBalance);
         this.type = type;
     }
 
@@ -36,11 +38,11 @@ public class Account extends AbstractEntity<AccountId> {
         super(AccountId.randomId(AccountId.class));
     }
 
-    public void withdraw(Double amount) {
-        this.accountBalance-=amount;
+    public void withdraw(Money amount) {
+        this.accountBalance = this.accountBalance.subtract(amount);
     }
 
-    public void deposit(Double amount) {
-        this.accountBalance+=amount;
+    public void deposit(Money amount) {
+        this.accountBalance = this.accountBalance.add(amount);
     }
 }

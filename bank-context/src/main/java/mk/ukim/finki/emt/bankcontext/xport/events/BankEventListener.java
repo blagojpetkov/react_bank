@@ -17,11 +17,11 @@ public class BankEventListener {
     private final BankService bankService;
 
     @KafkaListener(topics= TopicHolder.TOPIC_TRANSACTION_CREATED, groupId = "productCatalog")
-    public void consumeOrderItemCreatedEvent(String jsonMessage) {
+    public void consumeTransactionCreatedEvent(String jsonMessage) {
         try {
             TransactionCreated event = DomainEvent.fromJson(jsonMessage,TransactionCreated.class);
             BankId bankId = new BankId(event.getBankIdString());
-            Bank bank = bankService.findById(bankId);
+            Bank bank = bankService.findById(bankId).get();
             bank.updateTransactionCount();
             bankService.save(bank);
         } catch (Exception e){

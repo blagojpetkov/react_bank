@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -44,8 +45,8 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public Bank findById(BankId bankId) {
-        return bankRepository.findById(bankId).orElseThrow(()->new RuntimeException("Bank doesn't exist"));
+    public Optional<Bank> findById(BankId bankId) {
+        return bankRepository.findById(bankId);
     }
 
     @Override

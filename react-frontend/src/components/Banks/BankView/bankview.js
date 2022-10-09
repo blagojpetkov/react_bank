@@ -12,6 +12,7 @@ class bankView extends React.Component{
         const users = this.getUsers();
         return (
             <div>
+                <h4>Number of transactions: {this.props.banks.filter(x=>x.id.id===this.props.term).map(x=>x.transactionCount)}</h4>
                 <div>
                     <table className={"table table-striped"}>
                         <thead>

@@ -57,7 +57,7 @@ const ATMLogin = (props) => {
             <h4 className={"success alert alert-success text-center"}>Money deposit is successful</h4>
             }
 
-            {props.responseStatus !== "Success" &&
+            {props.responseStatus !== "" && props.responseStatus !== "Success" &&
                 props.responseStatus !== "Money withdrawal is successful" &&
                 props.responseStatus !== "Money deposit is successful" &&
             <h4 className={"redText alert alert-danger text-center"}>{props.responseStatus}</h4>
@@ -68,10 +68,10 @@ const ATMLogin = (props) => {
             <h2 className={"text-center"}>ATM: {props.term.location}</h2>
             <br/>
             <h4 className={"text-center"}>Current ATM balance:</h4>
-            <h4 id="balance" className={"text-center"}>{props.term.balance}</h4>
+            <h4 id="balance" className={"text-center"}>{props.term.balance?.amount}$</h4>
 
             {props.responseStatus === "Success" &&
-                <div>
+                <div className={"text-center"}>
                     <br/>
                 <h3>Current account balance:</h3>
                 <h3 id="balance">{props.selectedAccountBalance}</h3>
@@ -116,19 +116,19 @@ const ATMLogin = (props) => {
 
             </div>
 
-            <div id={"right"} style={{display: 'inline-block'}}>
+            <div id={"right"}>
             {props.responseStatus === "Success" &&
 
-            <div>
+            <div style={{width: "65%", margin: "auto"}}>
                 <form style={{display: 'inline-block', margin: '10px'}} onSubmit={onFormSubmitWithdraw}>
                     <div className="container my-5" style={{
                         backgroundColor: '#0a4050',
-                        width: '100%',
+                        width: '400px',
                         border: '2px solid gray',
                         borderRadius: '30px',
                         padding: '40px'
                     }}>
-                        <h3 className="text-light">Amount to withdraw</h3>
+                        <h3 className="text-light">Withdraw money</h3>
                         <input type="text"
                                className="form-control"
                                id="amount"
@@ -147,12 +147,12 @@ const ATMLogin = (props) => {
                 <form style={{display: 'inline-block', margin: '10px'}} onSubmit={onFormSubmitDeposit}>
                     <div className="container my-5" style={{
                         backgroundColor: '#0a4050',
-                        width: '100%',
+                        width: '400px',
                         border: '2px solid gray',
                         borderRadius: '30px',
                         padding: '40px'
                     }}>
-                        <h3 className="text-light">Amount to deposit</h3>
+                        <h3 className="text-light">Deposit money</h3>
                         <input type="text"
                                className="form-control"
                                id="amount"

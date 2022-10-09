@@ -6,6 +6,7 @@ import mk.ukim.finki.emt.transactioncontext.domain.models.ATMId;
 import mk.ukim.finki.emt.transactioncontext.domain.models.Account;
 import mk.ukim.finki.emt.transactioncontext.domain.repository.ATMRepository;
 import mk.ukim.finki.emt.transactioncontext.domain.repository.AccountRepository;
+import mk.ukim.finki.emt.transactioncontext.domain.valueobjects.BankId;
 import mk.ukim.finki.emt.transactioncontext.services.ATMService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,13 +19,13 @@ import java.util.List;
 @AllArgsConstructor
 public class ATMController {
     private final ATMService atmService;
-    private final ATMRepository atmRepository;
     private final AccountRepository accountRepository;
 
 
-    @GetMapping("/test")
-    public void test(){
-        atmRepository.save(new ATM());
+
+    @GetMapping("/addATM")
+    public void addATM(@RequestParam String location, @RequestParam String bankIdString){
+        atmService.save(location, new BankId(bankIdString));
     }
 
     @GetMapping("/login")
@@ -46,19 +47,19 @@ public class ATMController {
     @GetMapping("/balance")
     public ResponseEntity<Double> getBalance(@RequestParam Long accountNumber){
         return accountRepository.findByAccountNumber(accountNumber)
-                .map(x->ResponseEntity.ok().body(x.getAccountBalance())).orElseGet(()->ResponseEntity.notFound().build());
+                .map(x->ResponseEntity.ok().body(x.getAccountBalance().getAmount())).orElseGet(()->ResponseEntity.notFound().build());
 
     }
 
     @GetMapping("/getAll")
     public List<ATM> getAll(){
-        return atmRepository.findAll();
+        return atmService.findAll();
     }
 
     @GetMapping("/get/{atmIdString}")
     public ResponseEntity<ATM> get(@PathVariable String atmIdString){
         ATMId atmId = new ATMId(atmIdString);
-        return atmRepository.findById(atmId).map(x->ResponseEntity.ok().body(x)).orElseGet(()->ResponseEntity.notFound().build());
+        return atmService.findById(atmId).map(x->ResponseEntity.ok().body(x)).orElseGet(()->ResponseEntity.notFound().build());
     }
 
 

@@ -5,10 +5,7 @@ import mk.ukim.finki.emt.moneytransportcontext.domain.models.MoneyTransportVehic
 import mk.ukim.finki.emt.moneytransportcontext.domain.repository.MoneyTransportVehicleRepository;
 import mk.ukim.finki.emt.moneytransportcontext.domain.valueobjects.BankId;
 import mk.ukim.finki.emt.moneytransportcontext.services.MoneyTransportVehicleService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,11 +16,10 @@ import java.util.List;
 public class MoneyTransportVehicleController {
 
     private final MoneyTransportVehicleService service;
-    private final MoneyTransportVehicleRepository repository;
-    @GetMapping("/test")
-    public void test(){
-        BankId bankId = new BankId("3f6f173b-009a-410a-8188-9effa8327ce6");
-        repository.save(new MoneyTransportVehicle(bankId, "Some location"));
+
+    @GetMapping("/addVehicle")
+    public void addVehicle(@RequestParam String location, @RequestParam String bankIdString){
+        service.save(location, new BankId(bankIdString));
     }
 
     @GetMapping("/getAll")

@@ -3,6 +3,7 @@ package mk.ukim.finki.emt.moneytransportcontext.services.impl;
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.emt.moneytransportcontext.domain.models.MoneyTransportVehicle;
 import mk.ukim.finki.emt.moneytransportcontext.domain.repository.MoneyTransportVehicleRepository;
+import mk.ukim.finki.emt.moneytransportcontext.domain.valueobjects.BankId;
 import mk.ukim.finki.emt.moneytransportcontext.services.MoneyTransportVehicleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,5 +29,10 @@ public class MoneyTransportVehicleServiceImpl implements MoneyTransportVehicleSe
         MoneyTransportVehicle vehicle = repository.findAll().get(randomVehicleNumber);
         //refilling atm with some vehicle
         System.out.println("Refilling ATM " + atm);
+    }
+
+    @Override
+    public void save(String location, BankId bankId) {
+        repository.save(new MoneyTransportVehicle(bankId, location));
     }
 }

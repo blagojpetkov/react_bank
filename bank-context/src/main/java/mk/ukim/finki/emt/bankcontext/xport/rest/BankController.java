@@ -21,24 +21,24 @@ import java.util.List;
 public class BankController {
 
     private final BankService bankService;
-    private final BankRepository bankRepository;
 
-    @GetMapping("/test")
-    public void test(){
-        bankRepository.save(new Bank(BankId.randomId(BankId.class), "Bank Name test " + bankRepository.findAll().size()));
+
+    @GetMapping("/addBank")
+    public void addBank(@RequestParam String name){
+        bankService.save(new Bank(BankId.randomId(BankId.class), name));
     }
 
     @GetMapping("/{bankIdString}")
     public ResponseEntity<Bank> getBank(@PathVariable String bankIdString){
         BankId bankId = new BankId(bankIdString);
-        return bankRepository.findById(bankId).map(x->ResponseEntity.ok().body(x)).orElseGet(()->ResponseEntity.notFound().build());
+        return bankService.findById(bankId).map(x->ResponseEntity.ok().body(x)).orElseGet(()->ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{bankIdString}/{userIdString}")
     public ResponseEntity<User> getUser(@PathVariable String bankIdString, @PathVariable String userIdString){
         BankId bankId = new BankId(bankIdString);
         UserId userId = new UserId(userIdString);
-        Bank bank = bankRepository.findById(bankId).get();
+        Bank bank = bankService.findById(bankId).get();
         return bank.getUsers().stream().filter(x->x.getId().getId().equals(userId.getId())).findFirst()
                 .map(x->ResponseEntity.ok().body(x)).orElseGet(()->ResponseEntity.notFound().build());
     }
@@ -47,7 +47,7 @@ public class BankController {
     @GetMapping("/getBankUsers/{id}")
     public List<User> getBankUsers(@PathVariable String id){
         BankId bankId = new BankId(id);
-        return bankRepository.findById(bankId).get().getUsers().stream().toList();
+        return bankService.findById(bankId).get().getUsers().stream().toList();
     }
 
     @GetMapping("/getAll")

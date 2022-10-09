@@ -25,6 +25,7 @@ class Banks extends React.Component{
                         </tbody>
                     </table>
                 </div>
+                <Link style={{width: "100%"}} className={"btn btn-success"} to={"/banks/add"}>Add bank</Link>
             </div>
         );
     }

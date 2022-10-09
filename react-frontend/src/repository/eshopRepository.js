@@ -13,6 +13,18 @@ const EShopService = {
         return axios_bank.get("/getAll")
     },
 
+    addBank: (name) => {
+        return axios_bank.get(  `/addBank?name=${name}`)
+    },
+
+    addATM: (location, bankId) => {
+        return axios_atm.get(  `/addATM?location=${location}&bankIdString=${bankId}`)
+    },
+
+    addVehicle: (location, bankId) => {
+        return axios_transport.get(  `/addVehicle?location=${location}&bankIdString=${bankId}`)
+    },
+
     addUserToBank(selectBank, name, surname, location, type) {
 
         return axios_bank.post("/user", {
